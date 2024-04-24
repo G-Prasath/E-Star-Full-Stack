@@ -34,7 +34,7 @@ app.listen(process.env.PORT, () => {
     });
 
     const htmlContent = `
-    <h2>New Form Submission</h2>
+    <h2>${process.env.EMAIL_HEADING}</h2>
     <table border="1" cellpadding="5" cellspacing="0">
       <tr>
         <td><strong>Name:</strong></td>
@@ -56,7 +56,7 @@ app.listen(process.env.PORT, () => {
   `;
 
     const mailOptions = {
-      from: process.env.EMAIL_USER,
+      from: email,
       to: process.env.EMAIL_USER,
       subject: "PEB Enquiry Quote",
       html: htmlContent,

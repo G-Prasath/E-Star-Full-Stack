@@ -3,6 +3,8 @@ import "./Form.css";
 import Reveal from "../Reveal";
 
 const Form = () => {
+  const [submitting, setSubmitting] = useState(false);
+
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -20,7 +22,7 @@ const Form = () => {
 
   const [errors, setErrors] = useState({});
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const validationError = {};
@@ -46,10 +48,31 @@ const Form = () => {
     setErrors(validationError);
 
     if (Object.keys(validationError).length === 0) {
-      formData.email = "";
-      formData.username = "";
-      formData.phone = "";
-      formData.service = "";
+      try {
+        setSubmitting(true);
+        const response = await fetch("http://localhost:3001/send-email", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        });
+
+        if (response.ok) {
+          setFormData({
+            username: "",
+            email: "",
+            phone: "",
+            service: "",
+          });
+        } else {
+          console.error("Failed to send email");
+        }
+      } catch (error) {
+        console.error("Error sending email:", error);
+      } finally {
+        setSubmitting(false); // Set loading state to false regardless of success or failure
+      }
     }
   };
 
@@ -132,7 +155,9 @@ const Form = () => {
               </div>
             </div>
             <div className="input-feilds">
-              <button className="btn">Touch Here</button>
+              <button className="btn" disabled={submitting}>
+                {submitting ? "Sending..." : "Send Now"}
+              </button>
             </div>
           </form>
         </div>

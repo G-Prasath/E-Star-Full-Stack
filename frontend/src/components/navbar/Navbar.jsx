@@ -6,83 +6,78 @@ import Reveal from "../Reveal";
 
 const Navbar = () => {
   const [toggle, setToggle] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
-const [formData, setFormData] = useState({
-  username: "",
-  email: "",
-  phone: "",
-  service: "",
-});
-
-const handleChange = (e) => {
-  const { name, value } = e.target;
-  setFormData({
-    ...formData,
-    [name]: value,
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    phone: "",
+    service: "",
   });
-};
 
-const [errors, setErrors] = useState({});
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
 
-const handleSubmit = async(e) => {
-  e.preventDefault();
+  const [errors, setErrors] = useState({});
 
-  const validationError = {};
-  if (!formData.username.trim()) {
-    validationError.username = "Username is Required";
-  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  if (!formData.email.trim()) {
-    validationError.email = "Email is Required";
-  } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-    validationError.email = "Email is Invalide";
-  }
-
-  if (!formData.phone.trim()) {
-    validationError.phone = "Phone Number Required";
-  } else if (!/^\d{10}$/.test(formData.phone)) {
-    validationError.phone = "Phone Number is Invalide";
-  }
-  if (!formData.service) {
-    validationError.service = "Please choose a service";
-  }
-
-  setErrors(validationError);
-
-  if (Object.keys(validationError).length === 0) {
-
-    try {
-      const response = await fetch('http://localhost:3001/send-email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-      });
-      
-      if (response.ok) {
-        console.log('Email sent successfully');
-      } else {
-        console.error('Failed to send email');
-      }
-    } catch (error) {
-      console.error('Error sending email:', error);
+    const validationError = {};
+    if (!formData.username.trim()) {
+      validationError.username = "Username is Required";
     }
 
+    if (!formData.email.trim()) {
+      validationError.email = "Email is Required";
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      validationError.email = "Email is Invalide";
+    }
 
+    if (!formData.phone.trim()) {
+      validationError.phone = "Phone Number Required";
+    } else if (!/^\d{10}$/.test(formData.phone)) {
+      validationError.phone = "Phone Number is Invalide";
+    }
+    if (!formData.service) {
+      validationError.service = "Please choose a service";
+    }
 
-    alert("Form Submited");
-    formData.email = "";
-    formData.username = "";
-    formData.phone = "";
-    formData.service = "";
-  }
-};
+    setErrors(validationError);
 
+    if (Object.keys(validationError).length === 0) {
+      try {
+        setSubmitting(true);
+        const response = await fetch("http://localhost:3001/send-email", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        });
 
-
-
-
+        if (response.ok) {
+          setFormData({
+            username: "",
+            email: "",
+            phone: "",
+            service: "",
+          });
+        } else {
+          console.error("Failed to send email");
+        }
+      } catch (error) {
+        console.error("Error sending email:", error);
+      } finally {
+        setSubmitting(false); // Set loading state to false regardless of success or failure
+      }
+    }
+  };
 
   return (
     <header className="header">
@@ -135,10 +130,6 @@ const handleSubmit = async(e) => {
       <div className="section__container header__container" id="home">
         <Reveal delay={0.25} duration={0.5}>
           <h1>No Matter Where You Are Going From, We Take You There</h1>
-          {/* <p>
-            You do not have the right to remain silent. Let us know what it
-            takes to challenge you
-          </p> */}
         </Reveal>
 
         <Reveal delay={0.7} duration={0.5}>
@@ -208,7 +199,9 @@ const handleSubmit = async(e) => {
                 </div>
               </div>
               <div className="booking__btn">
-                <button className="btn">Send Now</button>
+                <button className="btn" disabled={submitting}>
+                  {submitting ? "Sending..." : "Send Now"}
+                </button>
               </div>
             </form>
           </div>
