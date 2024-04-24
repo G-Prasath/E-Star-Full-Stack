@@ -1,0 +1,263 @@
+.header {
+  padding-top: 4rem;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("/assets/header.jpeg");
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}
+
+nav {
+  position: fixed;
+  isolation: isolate;
+  top: 0;
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+  z-index: 9;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: #fff;
+}
+
+.nav__bar {
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  background-color: #fff;
+}
+
+.nav__menu__btn {
+  font-size: 1.5rem;
+  color: #fff;
+  cursor: pointer;
+}
+
+.nav__links {
+  position: absolute;
+  width: 100%;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  background-color: #5484dd;
+  transform: translateY(-100%);
+  transition: 0.5s;
+  z-index: -1;
+}
+
+.nav__links.open {
+  transform: translateY(0);
+}
+
+.nav__links a {
+  color: #000;
+  transition: 0.3s;
+}
+
+.nav__links a:hover {
+  color: #112b5a;
+}
+
+.header__container {
+  max-width: 900px;
+}
+
+.header__container h1 {
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+}
+
+.header__container p {
+  max-width: 600px;
+  margin-inline: auto;
+  margin-bottom: 4rem;
+  color: #fff;
+  text-align: center;
+}
+
+.booking {
+  max-width: 400px;
+  margin: 150px auto;
+  padding: 1.5rem 1rem;
+  display: grid;
+  gap: 1.5rem;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+  color: #fff;
+}
+
+.booking__type {
+  width: fit-content;
+  padding: 5px;
+  display: grid;
+  grid-template-columns: max-content max-content max-content;
+  align-items: center;
+  background-color: #5484dd;
+  border-radius: 2px;
+}
+
+.booking__type > div {
+  padding: 10px;
+  color: #fff;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.booking__type > :is(div:hover, div.active) {
+  color: #5484dd;
+  background-color: #fff;
+}
+
+.booking__form {
+  padding: 1.5rem 1rem;
+  display: grid;
+  align-items: center;
+  gap: 1rem;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+}
+
+.booking__input {
+  display: grid;
+  gap: 5px;
+}
+
+.booking__input label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #fff;
+}
+
+.booking__input input {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  color: #333333;
+  outline: none;
+  border: 1px solid #cfcfcf;
+  border-radius: 2px;
+}
+
+.booking__btn {
+  text-align: right;
+}
+
+/* --------------- Drop Down --------------  */
+.custom-select {
+  min-width: 350px;
+  position: relative;
+  border-radius: 5px;
+  border: 2px solid #112b5a;
+}
+
+select {
+  appearance: none;
+  /*  safari  */
+  -webkit-appearance: none;
+  /*  other styles for aesthetics */
+  width: 100%;
+  font-size: 16px;
+  padding: 0.675em 6em 0.675em 1em;
+  background-color: #fff;
+  border-radius: 0.25rem;
+  color: #000;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+select option {
+  font-size: 16px;
+  margin: 10px 0px;
+}
+
+.custom-select::before,
+.custom-select::after {
+  --size: 0.3rem;
+  content: "";
+  position: absolute;
+  right: 1rem;
+  pointer-events: none;
+}
+
+.custom-select::before {
+  border-left: var(--size) solid transparent;
+  border-right: var(--size) solid transparent;
+  border-bottom: var(--size) solid black;
+  top: 40%;
+}
+
+.custom-select::after {
+  border-left: var(--size) solid transparent;
+  border-right: var(--size) solid transparent;
+  border-top: var(--size) solid black;
+  top: 55%;
+}
+
+/* ----------------  */
+/* Navbar Media Query */
+@media (width > 768px) {
+  nav {
+    padding: 1.5rem 2rem;
+    position: static;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 5px;
+  }
+
+  .nav__bar {
+    padding: 0;
+    background-color: transparent;
+  }
+
+  .nav__menu__btn {
+    display: none;
+  }
+
+  .nav__links {
+    padding: 0;
+    width: unset;
+    position: static;
+    transform: none;
+    flex-direction: row;
+    background-color: transparent;
+  }
+
+  .header {
+    padding-top: 0;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+  }
+
+  .header__container h1 {
+    margin-bottom: 1rem;
+    font-size: 3rem;
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+  }
+
+  .booking {
+    max-width: 100%;
+    padding: 1.5rem;
+    border-radius: 5px;
+    color: #fff;
+    backdrop-filter: blur(10px);
+    font-weight: bold;
+  }
+
+  .booking__form {
+    padding: 1.5rem;
+    grid-template-columns: repeat(3, 1fr);
+    border-radius: 5px;
+  }
+}

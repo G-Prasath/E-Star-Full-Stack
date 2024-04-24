@@ -1,0 +1,48 @@
+/* About  */
+.about__container {
+  display: grid;
+  gap: 2rem;
+}
+
+.about__image img {
+  aspect-ratio: 1 / 1;
+  margin: auto;
+}
+
+.about__content ul {
+  margin-block: 2rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.about__content li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: #767268;
+}
+
+/* .about__content li span {
+  font-size: 1.2rem;
+  color: #5484dd;
+} */
+
+.about__links {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.about__links img {
+  max-width: 150px;
+  height: 100%;
+}
+
+/* ---------- Media Query --------  */
+
+@media (width > 765px) {
+  .about__container {
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+  }
+}

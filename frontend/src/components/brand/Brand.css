@@ -1,0 +1,29 @@
+.logos{
+    overflow: hidden;
+    background-color: aliceblue;
+    white-space: nowrap;
+    margin-top: 50px;
+}
+.logo-slides{
+    animation: 20s slides infinite linear;
+    display: inline-flex;
+    align-items: center;
+    gap: 0px;
+}
+.logo-slides > img{
+    width: 200px;
+    height: 130px;
+}
+
+.logos:hover .logo-slides{
+    animation-play-state: paused;
+}
+
+@keyframes slides {
+    from{
+        transform: translateX(0);
+    }
+    to{
+        transform: translateX(-100%);
+    }
+}
